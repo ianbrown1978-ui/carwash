@@ -1,23 +1,24 @@
 <script>
-	import Header from "$lib/components/Header.svelte"; 
-import Footer from '$lib/components/Footer.svelte';
-import Login from '$lib/components/Login.svelte';
-
-
-	import { loggedInUser } from '$lib/stores/globals.js';
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+	import Login from '$lib/components/Login.svelte';
 
 	import { goto } from '$app/navigation'; // needed for redirect!
 	import { browser } from '$app/environment'; // needed to detect page fully loaded
 
-    import Register from '$lib/components/Register.svelte';
+	import Register from '$lib/components/Register.svelte';
 
-		// receive the load() return as `data`
+	// receive the load() return as `data`
 	export let data; // This receives the return value from load() in +page.server.js – SvelteKit passes it in automatically
 	export let form = {}; // initialise empty object for form submission result/errors   - this is the default svelte storage location for this data
 
+	let header = {
+		title: data.title,
+		showBasket: data.showBasket ?? false
+	};
 
-	loggedInUser.set(data.user);
-	
+	export let loggedInUser = data.user ?? '';
+	console.log('loggedInUser', loggedInUser);
 
 	if (form?.user) {
 		loggedInUser.set(form.user);
@@ -25,14 +26,11 @@ import Login from '$lib/components/Login.svelte';
 	}
 
 	//  check to see if logged in (and page fully loaded)
-	if (browser && $loggedInUser != 'Guest') {
+	if (browser && loggedInUser != 'Guest') {
 		console.log('go home');
 		alert('You are already logged in'); // simple browser popup
 		goto('/'); // redirect to homepage
 	}
-
-
-
 
 	// debug line:
 	//console.log('data:', data);     // Logs the entire data object received
@@ -46,7 +44,6 @@ import Login from '$lib/components/Login.svelte';
 
 	const errors = form?.errors ?? {};
 	//console.log("errors client side:", errors); // debugging
-
 
 	/* 
        pull submitted values back into input fields
@@ -67,21 +64,20 @@ import Login from '$lib/components/Login.svelte';
 	*/
 </script>
 
-
-
 <div class="layout">
+	<Header {...header} />
 
-<Header title={'User Admin'} />
+	<main>
+		<Register {data} {form} />
+	</main>
 
-<main>
-	<Register {data} form={form} />
-</main>
-
-<main-right>
-		<Login form={form || {}} /><!-- Login component is passed the form object or empty if none exists -->
+	<main-right>
+		<Login
+			form={form || {}}
+			{loggedInUser}
+		/><!-- Login component is passed the form object or empty if none exists -->
 		<!-- form object created by the user front end and passed back in for its errors and data properties -->
 	</main-right>
 
 	<Footer />
-	
 </div>

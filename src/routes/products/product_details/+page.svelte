@@ -8,12 +8,18 @@
 
 	export let data;
 	export let form = {}; // initialise empty object for form submission
+
 	let timeslot = (form?.values?.timeslot) ?? ''; // resilient chaining used, if form doesnt exist timeslot willl be empty but valid
+
+	let header = {
+		title: data.title,
+		showBasket: data.showBasket ?? false
+	};
 
 	export let bookingerror ="";
 
-	import { loggedInUser } from '$lib/stores/globals.js'; // loggedInUser is a shared reactive store to keep track of the current user
-	loggedInUser.set(data.user);
+	export let loggedInUser = data.user ?? '';
+	console.log('loggedInUser', loggedInUser);
 
 	if (form?.user) {
 		loggedInUser.set(form.user);
@@ -40,7 +46,7 @@
 </script>
 
 <div class="layout">
-	<Header title={data.title} />
+	<Header {...header} />
 
 	<main style="display: flex; gap: 1rem; padding: 1rem;">
 		<!-- Left: Full Description -->
@@ -81,7 +87,8 @@
 		<!--  form action posts the book action AND productID=, IMPORTANT!  -->
 		<form class="register" method="POST" action="?/book&productID={productDetails.productID}" novalidate>
 			<input type="hidden" name="productID" value={productDetails.productID} />
-			<input type="hidden" name="userName" value={$loggedInUser} />
+			<input type="hidden" name="userName" value="123" />
+			<input type="hidden" name="userName" value={loggedInUser} />
 
 			<label
 				>Date:
@@ -132,6 +139,7 @@
 	<main-right>
 		<Login
 			form={form || {}}
+			{loggedInUser}
 		/><!-- Login component is passed the form object or empty if none exists -->
 		<!-- form object created by the user front end and passed back in for its errors and data properties -->
 	</main-right>

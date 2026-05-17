@@ -2,6 +2,7 @@ import * as lib from '$lib';
 
 export async function load({ cookies }) {
   const user = cookies.get('user') || 'Guest';
+  let showBasket = Number(cookies.get('adult'))>0 || Number(cookies.get('student'))>0 ? true : false;
 
   // API data & kepy (not on front end for security)
   // signup at weatherapi.com/signup.aspx
@@ -29,7 +30,7 @@ export async function load({ cookies }) {
 
   return {
     title: 'Dashboard',
-    user, weather, location, sports
+    user, weather, location, sports, showBasket
   };
 }
 

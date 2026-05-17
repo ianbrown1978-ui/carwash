@@ -4,6 +4,11 @@
 	export let data; //is the default way to receive all props returned from the server load function for that route. It’s automatically populated by SvelteKit.
 	export let form; //form in your Svelte page is just a client-side variable holding processed results.
 
+	let header = {
+		title: data.title,
+		showBasket: data.showBasket ?? false
+	};
+
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import Login from '$lib/components/Login.svelte';
@@ -28,7 +33,7 @@
 </script>
 
 <div class="layout">
-	<Header title={data.title} />
+	<Header {...header} />
 
 	<main class="dashboard">
 		<h1>API Example - Current Weather</h1>

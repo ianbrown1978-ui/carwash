@@ -5,7 +5,8 @@ export async function load({ url, cookies }) {
   const washType = url.searchParams.get('washType') || null; // gets wash type if passed by a link: /products?washType=2
   // null ensures washType is null if nothing is found. It’s safe to assign to a variable.
 
-  const user = cookies.get('user') || 'Guest';
+  const user = await lib.getLoggedInUser(cookies);
+  let showBasket = Number(cookies.get('adult'))>0 || Number(cookies.get('student'))>0 ? true : false;
 
   // try and catch block, if try code fails return the err object in a message and an empty product array
   try {
@@ -32,7 +33,8 @@ export async function load({ url, cookies }) {
     return {
       products, // return it in the data object
       title: 'Product Page', // also returning page title
-      user
+      user, 
+      showBasket
     };
   } catch (error) {
     console.error('Error fetching products:', error);

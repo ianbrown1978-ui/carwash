@@ -1,25 +1,28 @@
 import * as lib from '$lib'; // impot all from index.js in the lib folder
+import { showBasket } from '$lib/components/Header.svelte';
 // 
 
 // this function is passed two built in object, the url and cookies
 export async function load({ url, cookies }) {
   const productID = url.searchParams.get('productID') ?? ''; // gets pruduct ID passed by the url (only way to access this page)
-  const user = cookies.get('user') || 'Guest';
+  const user = await lib.getLoggedInUser(cookies);
 
   try {
   
-    const productDetails = await lib.getProductDetails(productID)
+    const productDetails = await lib.getProductDetails(productID);
     console.log('Fetched products details for:', productID); // Keep this log for now
+
+    let showBasket = Number(cookies.get('adult'))>0 || Number(cookies.get('student'))>0 ? true : false;
 
     // example of how this could be done below with images in a table
     // const productImages = await lib.getProductImages(productID)
     // console.log('Fetched products images:', productImages); // Keep this log for now
 
-    return { title: 'Product Details Page', productDetails, user }; // return it in the data object
+    return { title: 'Product Details Page', productDetails, user, showBasket }; // return it in the data object
 
   } catch (error) {
     console.error('Error fetching product details:', error);
-    return { productDetails: [] }; // Return an empty array on error. product images could be added here.
+    return { productDetails: [], user, showBasket }; // Return an empty array on error. product images could be added here.
   }
 }
 

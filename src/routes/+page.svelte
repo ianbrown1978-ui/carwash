@@ -21,26 +21,26 @@
 	const routes = [
 		{
 			path: "/products",
-			title: "Route 1",
-			image: "placeholder1.jpg",
+			title: "All Products",
+			image: "/img/product/1/1.png",
 			description: "Description for Route 1",
 		},
 		{
-			path: "/route2",
+			path: "/products?washType=2",
 			title: "Route 2",
-			image: "placeholder2.jpg",
+			image: "/img/product/2/1.png",
 			description: "Description for Route 2",
 		},
 		{
-			path: "/route3",
+			path: "/products?washType=3",
 			title: "Route 3",
-			image: "placeholder3.jpg",
+			image: "/img/product/3/1.png",
 			description: "Description for Route 3",
 		},
 		{
-			path: "/route4",
+			path: "/products?washType=4",
 			title: "Route 4",
-			image: "placeholder4.jpg",
+			image: "/img/product/4/1.png",
 			description: "Description for Route 4",
 		},
 	];

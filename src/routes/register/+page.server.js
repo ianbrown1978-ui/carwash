@@ -6,7 +6,8 @@ import crypto from 'crypto'; // SHA255 encryption module
 
 export async function load({ cookies }) {
 
-  const user = cookies.get('user') || 'Guest';
+  const user = await lib.getLoggedInUser(cookies);
+  let showBasket = Number(cookies.get('adult'))>0 || Number(cookies.get('student'))>0 ? true : false;
 
   try {
     const users = await lib.getAllUsers(); // call the function!
@@ -14,7 +15,7 @@ export async function load({ cookies }) {
     return { users, user }; // return it in the data object
   } catch (error) {
     console.error('Error fetching users:', error);
-    return { users: [], user }; // Return an empty array on error
+    return { users: [], user, showBasket }; // Return an empty array on error
   }
 }
 
