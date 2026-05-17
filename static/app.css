@@ -1,0 +1,156 @@
+.layout {
+  display: grid;
+  grid-template-columns: 20% 1fr 20%;
+  /* 1fr is one fracton so if there were 2 cols with 1fr they would share the avaiable space equally */
+  grid-template-rows: 100px 50px auto 200px;
+  /* 3 rows, top and bottom set height the middle one adjusts the the height required */
+  min-height: 100vh;
+  /* 100 percent of vh: viewport height */
+  gap: 0;
+  background-image: url("/img/bground.jpg");
+}
+
+header {
+  flex-direction: row; /* if not specified this would be default */
+  grid-column: 1 / -1;
+  /* this says span all columns go right accross */
+  grid-row: 1;
+  /* specifies the link beteen header element and which row this will be displayerd in the grid  */
+  background: #a3caf1;
+  color: white;
+  display: flex;
+  /* display: flex; is used to lay out items in a flexible row or column, allowing easy alignment, spacing, and responsive behavior without complex floats or positioning.  */
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  /* 1.5rem means 1 "root" em, which equals the root element’s font size—usually 16px by default in browsers. It's used for consistent, scalable spacing or sizing across a site.  */
+}
+
+img { margin: 10px;} /* ALL images */
+
+#logo { margin: 20px;} /* logo had id="logo" */
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+nav {
+
+grid-column: 1 / -1;
+grid-row: 2;
+grid-column: 2;
+display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+footer {
+  grid-column: 1 / -1;
+
+  grid-row: 4;
+  background: #a3caf1;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main {
+  grid-column: 2;
+  grid-row: 3;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: #a3caf1;
+  opacity: 0.8;
+}
+
+main-right { 
+  grid-column: 3;
+  grid-row: 3;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.error {
+  color: red;
+}
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.grid-item {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  text-align: center;
+}
+
+.grid-item img {
+  max-width: 100%;
+  height: auto;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem 0;
+}
+
+.register {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers horizontally */
+  gap: 1rem; /* space between inputs */
+}
+
+.popup {
+    position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the popup by moving it half its width and height */
+  text-shadow: 0 0 5px black;
+  padding: 1.5em 2em;
+  border-radius: 10px;
+  color: white;
+  font-size: 1.5em;
+  text-align: center;
+  z-index: 1000; /* front / back */
+}
+
+/* CSS sub classes */
+
+.popup.success { background-color: green; }
+.popup.error { background-color: red; }

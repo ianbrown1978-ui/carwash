@@ -1,0 +1,20 @@
+
+
+/*
+
+	Method below is OPTIONAL in the way it accesses a store makes the variable reactive without pageload
+
+	import { onMount } from 'svelte'; // onMount runs code once when the component loads in the browser
+
+	onMount(() => { // arrow functional used same as normal funciton but shorter syntax
+		loggedInUser.set(data.user);
+		
+	});
+
+
+	$: if (form?.user) { // Reactive statement: runs automatically whenever 'form.user' changes
+		loggedInUser.set(form.user);  // Update the loggedInUser store after a successful login form submission, uses the gloab .set method
+		console.log('logged in');
+	}
+
+	*/
